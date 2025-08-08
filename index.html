@@ -4,178 +4,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aseem Mehrotra - Digital Resume</title>
-
-    <!-- Meta Tags -->
-    <meta name="description" content="Senior Instrumentation Engineer & Data Scientist - Bridging Industrial Excellence with Data Science Innovation">
-    <meta name="author" content="Aseem Mehrotra">
-    <meta name="keywords" content="Aseem Mehrotra, Instrumentation Engineer, Data Scientist, AI, Machine Learning, Industrial Engineering">
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="Aseem Mehrotra - Digital Resume">
-    <meta property="og:description" content="17+ years of engineering excellence transitioning to data science leadership">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://aseemm84.github.io">
-    <meta property="og:image" content="./assets/images/profile.jpg">
-
+    
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Stylesheets -->
+    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+    
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="Senior Instrumentation Engineer & Data Scientist - Bridging 17+ years of industrial excellence with cutting-edge AI innovation">
+    <meta name="keywords" content="instrumentation engineer, data scientist, AI, machine learning, industrial automation, UAE">
+    <meta name="author" content="Aseem Mehrotra">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Aseem Mehrotra - Digital Resume">
+    <meta property="og:description" content="Senior Instrumentation Engineer & Data Scientist">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aseemm84.github.io/Aseem/">
+    <meta property="og:image" content="./assets/images/profile.jpg">
+    
+    <!-- CSS Files - Load in correct order -->
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/components.css">
     <link rel="stylesheet" href="./css/animations.css">
-
-    <!-- PWA -->
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PWA Manifest -->
     <link rel="manifest" href="./manifest.json">
+    
+    <!-- Theme Color -->
     <meta name="theme-color" content="#2563eb">
 </head>
-
 <body>
     <!-- Loading Screen -->
     <div id="loading-screen" class="loading-screen">
-        <div class="loader">
-            <div class="loader-inner">
-                <div class="loader-line-wrap">
-                    <div class="loader-line"></div>
-                </div>
-                <div class="loader-line-wrap">
-                    <div class="loader-line"></div>
-                </div>
-                <div class="loader-line-wrap">
-                    <div class="loader-line"></div>
-                </div>
-                <div class="loader-line-wrap">
-                    <div class="loader-line"></div>
-                </div>
-                <div class="loader-line-wrap">
-                    <div class="loader-line"></div>
-                </div>
-            </div>
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2 class="loading-text">Loading Digital Resume...</h2>
         </div>
-        <p class="loading-text">Loading Digital Resume...</p>
     </div>
 
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <nav id="navbar" class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-icon">🚀</span>
-                <span class="logo-text">AM</span>
+            <a href="#home" class="nav-brand">
+                <span class="brand-text">Aseem</span>
+            </a>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#certifications" class="nav-link">Certifications</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </div>
-
-            <ul class="nav-menu" id="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link active">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#experience" class="nav-link">Experience</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#skills" class="nav-link">Skills</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#projects" class="nav-link">Projects</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#certifications" class="nav-link">Certifications</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact</a>
-                </li>
-            </ul>
-
+            
             <div class="nav-toggle" id="nav-toggle">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main>
+    <main id="main-content">
         <!-- Hero Section -->
         <section id="home" class="hero">
-            <div class="hero-background">
-                <canvas id="particles-canvas" class="particles-canvas"></canvas>
-            </div>
-
-            <div class="container">
+            <div class="hero-container">
                 <div class="hero-content">
                     <div class="hero-text">
                         <h1 class="hero-title">
-                            <span class="title-line">Aseem Mehrotra</span>
+                            <span class="name">Aseem Mehrotra</span>
                         </h1>
-
+                        
                         <div class="hero-subtitle">
-                            <span class="typing-text" id="typing-text"></span>
+                            <span id="typing-text"></span>
+                            <span class="typing-cursor">|</span>
                         </div>
-
+                        
                         <p class="hero-description">
                             Bridging <strong>17+ years of industrial excellence</strong> with 
                             <strong>cutting-edge data science innovation</strong>. 
                             Transforming traditional engineering expertise into AI-driven solutions.
                         </p>
 
-                        <div class="hero-buttons">
+                        <div class="hero-cta">
                             <a href="#projects" class="btn btn-primary">
-                                <span>View Projects</span>
-                                <i class="fas fa-arrow-right"></i>
+                                <i class="fas fa-code"></i>
+                                View Projects
                             </a>
                             <a href="#contact" class="btn btn-outline">
-                                <span>Get In Touch</span>
                                 <i class="fas fa-envelope"></i>
+                                Get In Touch
                             </a>
                         </div>
-
+                        
                         <div class="hero-social">
-                            <a href="https://www.linkedin.com/in/aseem-mehrotra" target="_blank" class="social-link" aria-label="LinkedIn">
-                                <i class="fab fa-linkedin-in"></i>
+                            <a href="https://www.linkedin.com/in/aseem-mehrotra" class="social-link" target="_blank" rel="noopener">
+                                <i class="fab fa-linkedin"></i>
                             </a>
-                            <a href="https://github.com/aseemm84" target="_blank" class="social-link" aria-label="GitHub">
+                            <a href="https://github.com/aseemm84" class="social-link" target="_blank" rel="noopener">
                                 <i class="fab fa-github"></i>
                             </a>
-                            <a href="https://share.streamlit.io/user/aseemm84" target="_blank" class="social-link" aria-label="Streamlit">
-                                <i class="fas fa-chart-line"></i>
-                            </a>
-                            <a href="mailto:aseem.mehrotra1984@outlook.com" class="social-link" aria-label="Email">
+                            <a href="mailto:aseem.mehrotra1984@outlook.com" class="social-link">
                                 <i class="fas fa-envelope"></i>
+                            </a>
+                            <a href="https://share.streamlit.io/user/aseemm84" class="social-link" target="_blank" rel="noopener">
+                                <i class="fas fa-chart-line"></i>
                             </a>
                         </div>
                     </div>
-
-                    <div class="hero-image">
-                        <div class="profile-container">
-                            <img src="./assets/images/profile.jpg" alt="Aseem Mehrotra" class="profile-img" loading="lazy">
-                            <div class="profile-badge engineering">⚙️</div>
-                            <div class="profile-badge datascience">🤖</div>
-                            <div class="profile-badge ai">🧠</div>
+                    
+                    <div class="hero-visual">
+                        <div class="hero-icons">
+                            <div class="floating-icon">⚙️</div>
+                            <div class="floating-icon">🤖</div>
+                            <div class="floating-icon">🧠</div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="scroll-indicator">
-                <span class="scroll-text">Scroll Down</span>
-                <div class="scroll-arrow">
-                    <i class="fas fa-chevron-down"></i>
+                
+                <div class="scroll-indicator">
+                    <span>Scroll Down</span>
+                    <div class="scroll-arrow">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- About Section -->
-        <section id="about" class="about">
+        <section id="about" class="section">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">About Me</h2>
@@ -192,113 +156,114 @@
                             </p>
                         </div>
 
-                        <div class="dual-expertise">
-                            <div class="expertise-card">
-                                <div class="expertise-icon">⚙️</div>
+                        <div class="about-grid">
+                            <div class="about-card">
+                                <div class="card-icon">⚙️</div>
                                 <h3>Industrial Engineering</h3>
-                                <ul>
-                                    <li>$300K+ Budget Management</li>
-                                    <li>75% Operational Downtime Reduction</li>
-                                    <li>1,319 Tons CO₂ Emission Reduction</li>
-                                    <li>15+ Team Members Leadership</li>
-                                    <li>10,000+ Critical Assets Management</li>
+                                <ul class="achievement-list">
+                                    <li><i class="fas fa-check"></i>$300K+ Budget Management</li>
+                                    <li><i class="fas fa-check"></i>75% Operational Downtime Reduction</li>
+                                    <li><i class="fas fa-check"></i>1,319 Tons CO₂ Emission Reduction</li>
+                                    <li><i class="fas fa-check"></i>15+ Team Members Leadership</li>
+                                    <li><i class="fas fa-check"></i>10,000+ Critical Assets Management</li>
                                 </ul>
                             </div>
 
-                            <div class="expertise-card">
-                                <div class="expertise-icon">🤖</div>
+                            <div class="about-card">
+                                <div class="card-icon">🤖</div>
                                 <h3>Data Science & AI</h3>
-                                <ul>
-                                    <li>MSc Data Science (Top 5% Distinction)</li>
-                                    <li>4+ Production Streamlit Applications</li>
-                                    <li>GenAI & NLP Specialization</li>
-                                    <li>Microsoft Power BI Certified</li>
-                                    <li>Machine Learning & Analytics</li>
+                                <ul class="achievement-list">
+                                    <li><i class="fas fa-check"></i>MSc Data Science (Top 5% Distinction)</li>
+                                    <li><i class="fas fa-check"></i>4+ Production Streamlit Applications</li>
+                                    <li><i class="fas fa-check"></i>GenAI & NLP Specialization</li>
+                                    <li><i class="fas fa-check"></i>Microsoft Power BI Certified</li>
+                                    <li><i class="fas fa-check"></i>Machine Learning & Analytics</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <span class="stat-number" data-value="17">0</span>
-                            <span class="stat-label">Years Experience</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" data-value="4">0</span>
-                            <span class="stat-label">Live Applications</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" data-value="300">0</span>
-                            <span class="stat-label">Budget Managed ($K)</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" data-value="75">0</span>
-                            <span class="stat-label">Efficiency Improvement (%)</span>
-                        </div>
+                <!-- Statistics -->
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <div class="stat-number" data-value="17">0</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-value="4">0</div>
+                        <div class="stat-label">Live Applications</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-value="300">0</div>
+                        <div class="stat-label">Budget Managed ($K)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-value="75">0</div>
+                        <div class="stat-label">Efficiency Improvement (%)</div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Experience Section -->
-        <section id="experience" class="experience">
+        <section id="experience" class="section section-alt">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">Professional Journey</h2>
                     <p class="section-subtitle">From Engineering Excellence to Data Science Leadership</p>
                 </div>
 
-                <div class="timeline" id="timeline">
-                    <!-- Timeline items will be populated by JavaScript -->
+                <div id="timeline" class="timeline">
+                    <!-- Timeline will be populated by JavaScript -->
                 </div>
             </div>
         </section>
 
         <!-- Skills Section -->
-        <section id="skills" class="skills">
+        <section id="skills" class="section">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">Technical Expertise</h2>
                     <p class="section-subtitle">Bridging Traditional Engineering with Modern AI</p>
                 </div>
 
-                <div class="skills-grid" id="skills-grid">
+                <div id="skills-grid" class="skills-grid">
                     <!-- Skills will be populated by JavaScript -->
                 </div>
             </div>
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="projects">
+        <section id="projects" class="section section-alt">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">Featured Projects</h2>
                     <p class="section-subtitle">Live Applications & GitHub Repositories</p>
                 </div>
 
-                <div class="projects-grid" id="projects-grid">
+                <div id="projects-grid" class="projects-grid">
                     <!-- Projects will be populated by JavaScript -->
                 </div>
             </div>
         </section>
 
         <!-- Certifications Section -->
-        <section id="certifications" class="certifications">
+        <section id="certifications" class="section">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">Professional Certifications</h2>
                     <p class="section-subtitle">Verified Credentials & Continuous Learning</p>
                 </div>
 
-                <div class="certifications-grid" id="certifications-grid">
+                <div id="certifications-grid" class="certifications-grid">
                     <!-- Certifications will be populated by JavaScript -->
                 </div>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="contact">
+        <section id="contact" class="section section-alt">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">Let's Connect</h2>
@@ -313,7 +278,9 @@
                             </div>
                             <div class="contact-details">
                                 <h3>Email</h3>
-                                <a href="mailto:aseem.mehrotra1984@outlook.com">aseem.mehrotra1984@outlook.com</a>
+                                <a href="mailto:aseem.mehrotra1984@outlook.com">
+                                    aseem.mehrotra1984@outlook.com
+                                </a>
                             </div>
                         </div>
 
@@ -323,7 +290,9 @@
                             </div>
                             <div class="contact-details">
                                 <h3>Phone</h3>
-                                <a href="tel:+971508212454">+971 50 821 2454</a>
+                                <a href="tel:+971508212454">
+                                    +971 50 821 2454
+                                </a>
                             </div>
                         </div>
 
@@ -338,34 +307,32 @@
                         </div>
                     </div>
 
-                    <div class="contact-form">
-                        <form id="contact-form" class="form">
-                            <div class="form-group">
-                                <input type="text" id="name" name="name" required>
-                                <label for="name">Your Name</label>
-                            </div>
-
-                            <div class="form-group">
-                                <input type="email" id="email" name="email" required>
-                                <label for="email">Your Email</label>
-                            </div>
-
-                            <div class="form-group">
-                                <input type="text" id="subject" name="subject" required>
-                                <label for="subject">Subject</label>
-                            </div>
-
-                            <div class="form-group">
-                                <textarea id="message" name="message" rows="5" required></textarea>
-                                <label for="message">Your Message</label>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">
-                                <span>Send Message</span>
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </form>
-                    </div>
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" required>
+                            <label for="name">Your Name</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" required>
+                            <label for="email">Your Email</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" required>
+                            <label for="subject">Subject</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <label for="message">Your Message</label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
                 </div>
             </div>
         </section>
@@ -374,31 +341,29 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-text">
-                    <p>&copy; 2025 Aseem Mehrotra. All rights reserved.</p>
-                    <p>Bridging Industrial Excellence with Data Science Innovation</p>
-                </div>
-
-                <div class="footer-social">
-                    <a href="https://www.linkedin.com/in/aseem-mehrotra" target="_blank" class="social-link">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://github.com/aseemm84" target="_blank" class="social-link">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://share.streamlit.io/user/aseemm84" target="_blank" class="social-link">
-                        <i class="fas fa-chart-line"></i>
-                    </a>
-                </div>
-            </div>
+            <p>&copy; 2024 Aseem Mehrotra. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Scripts - Load in correct order -->
     <script src="./js/data.js"></script>
     <script src="./js/animations.js"></script>
     <script src="./js/components.js"></script>
     <script src="./js/main.js"></script>
+    
+    <!-- PWA Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>
