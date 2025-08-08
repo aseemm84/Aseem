@@ -1,155 +1,258 @@
-/**
- * Main JavaScript file for the Resume Web App.
- *
- * This file contains the main script to dynamically populate the resume content.
- * It calls functions to create different sections of the resume like personal info,
- * professional journey, technical expertise, projects, and certifications.
- */
+/* ==========================================================================
+   Main Application Controller - Clean & Modular
+   ========================================================================== */
 
-// A check to ensure the resumeData object is available before running any functions.
-if (typeof resumeData === 'undefined') {
-    console.error('Error: resumeData object not found. Make sure data.js is loaded before main.js');
-}
+class DigitalResumeApp {
+  constructor() {
+    this.isInitialized = false;
+    this.controllers = new Map();
+    this.currentSection = 'home';
+    this.isLoading = true;
 
-/**
- * Populates the personal information section in the header.
- */
-function populatePersonalInfo() {
-    // Correctly access the personalInfo object from the main resumeData object.
-    const info = resumeData.personalInfo;
-    if (!info) return; // Exit if data is not found
+    // Early bind of the init method to the instance
+    this.init = this.init.bind(this);
+  }
 
-    document.getElementById('name').textContent = info.name;
-    document.getElementById('title').textContent = info.title;
-    document.getElementById('location').textContent = info.location;
-    document.getElementById('email').textContent = info.email;
-    document.getElementById('email').href = `mailto:${info.email}`;
-    document.getElementById('linkedin').href = info.linkedin;
-    document.getElementById('github').href = info.github;
-    document.getElementById('summary-text').textContent = info.summary;
-}
+  async init() {
+    if (this.isInitialized) return;
 
-/**
- * Creates and populates the statistics cards section.
- */
-function populateStats() {
-    const statsContainer = document.getElementById('stats-cards');
-    // Correctly access the stats object from the main resumeData object.
-    const statsData = resumeData.stats;
+    try {
+      // Show loading screen immediately
+      this.showLoadingScreen();
 
-    if (statsData && statsContainer) {
-        statsContainer.innerHTML = ''; // Clear any placeholder content
+      // Defer non-critical initializations until after the page is loaded
+      if (document.readyState === 'loading') {
+        await new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve));
+      }
 
-        // The data is an object, so we create an array of stats to iterate over.
-        const stats = [
-            { value: statsData.yearsOfExperience, label: 'Years of Experience' },
-            { value: statsData.liveApplications, label: 'Live Applications' },
-            { value: statsData.budgetManaged, label: 'Budget Managed ($K)' },
-            { value: statsData.efficiencyImprovement, label: 'Efficiency Improvement (%)' }
-        ];
+      // Initialize controllers first as they populate the DOM
+      this.initializeControllers();
+      
+      // Then initialize core functionalities that depend on the DOM
+      await this.initializeCore();
 
-        stats.forEach(stat => {
-            // createStatsCard is expected to be in components.js
-            const card = createStatsCard(stat.value, stat.label);
-            statsContainer.appendChild(card);
-        });
+      // Setup event listeners and other interactive elements
+      this.setupNavigation();
+      this.setupScrollHandling();
 
-        // Animate the numbers after they are added to the DOM.
-        const counters = document.querySelectorAll('.stat-value');
-        counters.forEach(counter => {
-            // animateValue is expected to be in animations.js
-            if (typeof animateValue === 'function') {
-                animateValue(counter, 0, counter.dataset.value, 2000);
-            }
-        });
+      // Hide loading screen after a delay to allow animations to settle
+      setTimeout(() => {
+        this.hideLoadingScreen();
+        this.isLoading = false;
+      }, 500); // Reduced delay for faster perceived load
+
+      this.isInitialized = true;
+      console.log('✅ Digital Resume App initialized successfully');
+
+    } catch (error) {
+      console.error('❌ Failed to initialize app:', error);
+      this.handleInitError(error);
     }
+  }
+
+  // Show loading screen
+  showLoadingScreen() {
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) {
+      loadingScreen.classList.remove('hidden');
+    }
+  }
+
+  // Hide loading screen
+  hideLoadingScreen() {
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) {
+      loadingScreen.classList.add('hidden');
+      // Use 'transitionend' for a smoother removal
+      loadingScreen.addEventListener('transitionend', () => {
+        if (loadingScreen.parentNode) {
+          loadingScreen.remove();
+        }
+      }, { once: true });
+    }
+  }
+
+  // Initialize core functionality
+  async initializeCore() {
+    // This now correctly runs after components are rendered
+    this.setupStatsCounter();
+    this.setupAccessibility();
+    this.setupPerformanceMonitoring();
+    this.setupErrorHandling();
+  }
+
+  // Initialize controllers
+  initializeControllers() {
+    // These controllers render the dynamic content from data.js
+    if (typeof ComponentsController !== 'undefined') {
+        this.controllers.set('components', new ComponentsController());
+    }
+     if (typeof AnimationController !== 'undefined') {
+        this.controllers.set('animations', new AnimationController());
+    }
+  }
+
+  // Setup navigation functionality
+  setupNavigation() {
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => this.toggleMobileMenu());
+    }
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        this.navigateToSection(targetId);
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (navMenu && navMenu.classList.contains('active') && 
+          !navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+        this.closeMobileMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
+        this.closeMobileMenu();
+      }
+    });
+  }
+
+  toggleMobileMenu() {
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    navToggle.classList.toggle('active');
+    navMenu.classList.toggle('active');
+    document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+  }
+
+  closeMobileMenu() {
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    if (navMenu && navMenu.classList.contains('active')) {
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+  }
+
+  navigateToSection(sectionId) {
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+      this.currentSection = sectionId;
+      targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      this.updateActiveNavLink(sectionId);
+      this.closeMobileMenu();
+      this.trackNavigation(sectionId);
+    }
+  }
+
+  updateActiveNavLink(activeSection) {
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href').substring(1) === activeSection);
+    });
+  }
+
+  setupScrollHandling() {
+    let ticking = false;
+    const handleScroll = () => {
+      this.updateCurrentSection(window.pageYOffset);
+      ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(handleScroll);
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  updateCurrentSection(scrollY) {
+    const sections = document.querySelectorAll('section[id]');
+    let current = 'home';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 75; // Navbar height offset
+      if (scrollY >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    if (current !== this.currentSection) {
+        this.currentSection = current;
+        this.updateActiveNavLink(this.currentSection);
+    }
+  }
+  
+  // This was moved to the animation controller, but we ensure stats are populated
+  setupStatsCounter() {
+    const statsContainer = document.getElementById('stats-grid');
+    if (!statsContainer || !resumeData.stats) return;
+
+    const statsHTML = resumeData.stats.map(stat => `
+        <div class="stat-item">
+            <span class="stat-number" data-value="${stat.value}">0</span>
+            <span class="stat-label">${stat.label}</span>
+        </div>
+    `).join('');
+    statsContainer.innerHTML = statsHTML;
+  }
+
+  setupAccessibility() {
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Tab') document.body.classList.add('keyboard-navigation');
+    });
+    document.addEventListener('mousedown', () => {
+      document.body.classList.remove('keyboard-navigation');
+    });
+  }
+
+  setupPerformanceMonitoring() {
+    window.addEventListener('load', () => {
+      if (performance) {
+        const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+        console.log(`Page loaded in ${loadTime}ms`);
+      }
+    });
+  }
+
+  setupErrorHandling() {
+    window.addEventListener('error', e => console.error('Global error:', e.error));
+    window.addEventListener('unhandledrejection', e => console.error('Unhandled promise rejection:', e.reason));
+  }
+
+  handleInitError(error) {
+    this.hideLoadingScreen();
+    const fallbackHTML = `
+      <div style="text-align: center; padding: 50px; font-family: sans-serif;">
+        <h2>Oops! Something went wrong.</h2>
+        <p>We're having trouble loading the page. Please try refreshing.</p>
+        <button onclick="window.location.reload()">Refresh</button>
+      </div>
+    `;
+    document.body.innerHTML = fallbackHTML;
+  }
+
+  trackNavigation(sectionId) {
+    console.log(`Navigated to: ${sectionId}`);
+  }
+
+  destroy() {
+    this.controllers.forEach(controller => {
+      if (typeof controller.destroy === 'function') controller.destroy();
+    });
+    this.isInitialized = false;
+    console.log('App destroyed');
+  }
 }
 
-/**
- * Populates the professional journey timeline.
- */
-function populateJourney() {
-    const journeyContainer = document.querySelector('#professional-journey .timeline-container');
-    // Correctly access the professionalJourney array from the main resumeData object.
-    const journeyData = resumeData.professionalJourney;
-
-    if (journeyData && journeyContainer) {
-        journeyContainer.innerHTML = ''; // Clear any placeholder content
-        journeyData.forEach((item, index) => {
-            const side = index % 2 === 0 ? 'left' : 'right';
-            // createTimelineItem is expected to be in components.js
-            const journeyItem = createTimelineItem(item, side);
-            journeyContainer.appendChild(journeyItem);
-        });
-    }
-}
-
-/**
- * Populates the technical expertise section.
- */
-function populateExpertise() {
-    const expertiseContainer = document.querySelector('#technical-expertise .expertise-container');
-    // Correctly access the technicalExpertise array from the main resumeData object.
-    const expertiseData = resumeData.technicalExpertise;
-
-    if (expertiseData && expertiseContainer) {
-        expertiseContainer.innerHTML = ''; // Clear any placeholder content
-        expertiseData.forEach(item => {
-            // createExpertiseItem is expected to be in components.js
-            const expertiseItem = createExpertiseItem(item.category, item.skills);
-            expertiseContainer.appendChild(expertiseItem);
-        });
-    }
-}
-
-/**
- * Populates the featured projects section.
- */
-function populateProjects() {
-    const projectsContainer = document.querySelector('#featured-projects .projects-container');
-    // Correctly access the featuredProjects array from the main resumeData object.
-    const projectsData = resumeData.featuredProjects;
-
-    if (projectsData && projectsContainer) {
-        projectsContainer.innerHTML = ''; // Clear any placeholder content
-        projectsData.forEach(item => {
-            // createProjectCard is expected to be in components.js
-            const projectCard = createProjectCard(item);
-            projectsContainer.appendChild(projectCard);
-        });
-    }
-}
-
-/**
- * Populates the professional certifications section.
- */
-function populateCertifications() {
-    const certificationsContainer = document.querySelector('#professional-certifications .certifications-container');
-    // Correctly access the professionalCertifications array from the main resumeData object.
-    const certificationsData = resumeData.professionalCertifications;
-
-    if (certificationsData && certificationsContainer) {
-        certificationsContainer.innerHTML = ''; // Clear any placeholder content
-        certificationsData.forEach(item => {
-            // createCertificationItem is expected to be in components.js
-            const certificationItem = createCertificationItem(item);
-            certificationsContainer.appendChild(certificationItem);
-        });
-    }
-}
-
-/**
- * Event listener to call all population functions once the DOM is fully loaded.
- * This ensures that the script doesn't try to access elements that haven't been created yet.
- */
-document.addEventListener('DOMContentLoaded', () => {
-    // A final check inside the listener ensures data is available before populating.
-    if (typeof resumeData !== 'undefined') {
-        populatePersonalInfo();
-        populateStats();
-        populateJourney();
-        populateExpertise();
-        populateProjects();
-        populateCertifications();
-    }
-});
+// Initialize the application
+const app = new DigitalResumeApp();
+app.init();
